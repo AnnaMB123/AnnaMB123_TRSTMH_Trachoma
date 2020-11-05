@@ -1,6 +1,7 @@
 ###Running stochastic, individual-based trachoma transmission model###
 
-source("") # File for all model functions
+source("Trachoma_functions_TRSTMH.R") # File for all model functions
+
 
 library(iterators)
 library(foreach)

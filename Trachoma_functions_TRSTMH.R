@@ -291,25 +291,27 @@ bacterialLoad = function(No_Inf,parameters){
 
 
 # Set Initial values: 
-
-with(as.list(c(params,demog)),{
-  IndI <- rep(0,N) #Individual's infected status
-  IndD <- rep(0,N) #Individual's disease status
-  No_Inf<-rep(0,N) #Individual's total number of infections, increases by 1 each time they become newly infected
-  T_latent<-rep(0,N) #Duration of latent period (I), i.e. infected but not yet clinically diseased.
-  T_ID<-rep(0,N) #Duration of current ID period,set when becomes infected and counts down with each time step
-  T_D<-rep(0,N) #Duration individual spends diseased after clearing infection
-  Ind_latent<-rep(av_I_duration,N) #Individual's latent period fixed for now
-  Ind_ID_period_base<-rpois(N,av_ID_duration) #Individual's baseline ID period (first infection)
-  Ind_D_period_base<-rpois(N,av_D_duration) #Individual's baseline diseased period (first infection)
-  bact_load<-rep(0,N) #Baseline bacterial load set to zero
-  Age<-init_ages(params=parameters,demog=demog)
+Set_inits<-function(params,demog){
   
-  vals <<- list(IndI,IndD,No_Inf,T_latent,T_ID,T_D,Ind_latent,Ind_ID_period_base,Ind_D_period_base,bact_load,Age) 
-  names(vals)<<-c("IndI","IndD","No_Inf","T_latent","T_ID","T_D","Ind_latent","Ind_ID_period_base","Ind_D_period_base","bact_load","Age") 
+  with(as.list(c(params,demog)),{
+    IndI <- rep(0,N) #Individual's infected status
+    IndD <- rep(0,N) #Individual's disease status
+    No_Inf<-rep(0,N) #Individual's total number of infections, should increase by 1 each time they become newly infected
+    T_latent<-rep(0,N) #Duration of latent period (I), i.e. infected but not yet clinically diseased.
+    T_ID<-rep(0,N) #Duration of current ID period,set when becomes infected and counts down with each time step
+    T_D<-rep(0,N) #Duration individual spends diseased after clearing infection
+    Ind_latent<-rep(av_I_duration,N) #Individual's latent period fixed for now
+    Ind_ID_period_base<-rpois(N,av_ID_duration) #Individual's baseline ID period (first infection)- need to check that this isn't less than the minimum
+    Ind_D_period_base<-rpois(N,av_D_duration) #Individual's baseline diseased period (first infection)- need to check that this isn't less that the minimum
+    bact_load<-rep(0,N) #Baseline bacterial load set to zero
+    Age<-init_ages(params=parameters,demog=demog)
+    
+    
+    vals <<- list(IndI,IndD,No_Inf,T_latent,T_ID,T_D,Ind_latent,Ind_ID_period_base,Ind_D_period_base,bact_load,Age) 
+    names(vals)<<-c("IndI","IndD","No_Inf","T_latent","T_ID","T_D","Ind_latent","Ind_ID_period_base","Ind_D_period_base","bact_load","Age") 
+    
+  })
   
-})
-
 }
 
 #Seed infection

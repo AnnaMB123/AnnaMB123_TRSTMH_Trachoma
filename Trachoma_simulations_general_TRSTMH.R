@@ -2,7 +2,6 @@
 
 source("") # File for all model functions
 
-
 library(iterators)
 library(foreach)
 library(doParallel)
@@ -19,7 +18,7 @@ sim_params<-c(
   burnin=40*52, #years burin to be discarded (*52 so in weeks)
   Freq_MDA=1, #1 for annual, 0.5 for biannual, 2 for q 2 years etc
   N_MDA=16, # No. of rounds of MDA to be carried out in simulation
-  n_sim=400 #number of simulations
+  n_sim=4000 #number of simulations
   
 )
 
